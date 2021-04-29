@@ -1,0 +1,25 @@
+{
+	"name": "biblioteca-api",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"type": "module",
+	"scripts": {
+		"start": "node --experimental-json-modules index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/laxelott/biblioteca-api.git"
+	},
+	"author": "laxelott",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/laxelott/biblioteca-api/issues"
+	},
+	"homepage": "https://github.com/laxelott/biblioteca-api#readme",
+	"dependencies": {
+		"@hapi/hapi": "^20.1.2",
+		"mysql": "^2.18.1",
+		"node": "^16.0.0"
+	}
+}
