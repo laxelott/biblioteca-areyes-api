@@ -4,6 +4,13 @@ import mysql from "mysql";
 var DB = {
 	con: {},
 	open: () => {
+		DB.con = mysql.createConnection({
+			host: connData.host,
+			user: connData.user,
+			password: connData.password,
+			database : connData.database
+		});
+		
 		DB.con.connect();
 	},
 	close: () => {
