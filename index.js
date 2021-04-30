@@ -26,7 +26,7 @@ server.route({
 
 		DB.open();
 
-		result = await DB.query("select * from libros");
+		result = await DB.query("select nombre, autor, isbn, edicion, link, portada from libros");
 
 		DB.close();
 
