@@ -5,7 +5,9 @@ import fs from "fs";
 
 const __dirname = path.resolve(path.dirname(""));
 
-const server = Hapi.server(process.env.PORT, "0.0.0.0");
+const server = Hapi.server({
+	port: 80,
+});
 
 // ROUTES
 server.route({
