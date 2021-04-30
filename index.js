@@ -29,7 +29,7 @@ server.route({
 			DB.open();
 
 			result = await DB.query(
-				"select portada, nombre, autor, isbn, edicion, link from libros"
+				"select portada, nombre, autor, isbn, edicion, link, lenguaje from libros"
 			);
 
 			DB.close();
