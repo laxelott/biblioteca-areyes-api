@@ -21,32 +21,40 @@ server.route({
 server.route({
 	method: "GET",
 	path: "/libros/all",
-	handler: async (request, h) => {
-		var result;
+	options: {
+		cors: true,
+		handler: async (req, h) => {
+			var result;
 
-		DB.open();
+			DB.open();
 
-		result = await DB.query("select nombre, autor, isbn, edicion, link, portada from libros");
+			result = await DB.query(
+				"select nombre, autor, isbn, edicion, link, portada from libros"
+			);
 
-		DB.close();
+			DB.close();
 
-		return result;
+			return result;
+		},
 	},
 });
 
 server.route({
 	method: "GET",
 	path: "/libros/get/{libro?}",
-	handler: async (request, h) => {
-		var result;
+	options: {
+		cors: true,
+		handler: async (request, h) => {
+			var result;
 
-		DB.open();
+			DB.open();
 
-		result = await DB.query("select * from libros");
+			result = await DB.query("select * from libros");
 
-		DB.close();
+			DB.close();
 
-		return result;
+			return result;
+		},
 	},
 });
 
