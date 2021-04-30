@@ -5,14 +5,14 @@ import fs from "fs";
 
 const __dirname = path.resolve(path.dirname(""));
 
-const server = Hapi.server();
+const server = Hapi.server(process.env.PORT, "0.0.0.0");
 
 // ROUTES
 server.route({
 	method: "GET",
 	path: "/",
 	handler: async (request, h) => {
-		return fs.readFileSync('./holi.html', 'utf8');
+		return fs.readFileSync("./holi.html", "utf8");
 	},
 });
 
@@ -47,8 +47,6 @@ server.route({
 		return result;
 	},
 });
-
-
 
 await server.start();
 console.log("Server running on %s", server.info.uri);
