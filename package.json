@@ -2,10 +2,10 @@
 	"name": "biblioteca-api",
 	"version": "1.0.0",
 	"description": "",
-	"main": "index.js",
+	"main": "src/index.js",
 	"type": "module",
 	"scripts": {
-		"start": "node --experimental-json-modules index.js"
+		"start": "node --experimental-json-modules src/index.js"
 	},
 	"repository": {
 		"type": "git",

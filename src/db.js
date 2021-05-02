@@ -1,4 +1,4 @@
-import connData from "./connection-data.json";
+import connData from "./../data";
 import mysql from "mysql";
 
 var DB = {
