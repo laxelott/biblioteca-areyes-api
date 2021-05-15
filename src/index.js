@@ -1,20 +1,28 @@
 import Hapi from "@hapi/hapi";
 import DB from "./db.js";
 import path from "path";
-import fs from "fs";
+import inert from "@hapi/inert";
 
 const __dirname = path.resolve(path.dirname(""));
 
 const server = Hapi.server({
-	port: process.env.PORT || 3000,
+	port: process.env.PORT || 80,
+	routes: {
+		files: {
+			relativeTo: path.join(__dirname, "static"),
+		},
+	},
 });
+
+await server.register(inert);
+await DB.init();
 
 // ROUTES
 server.route({
 	method: "GET",
 	path: "/",
-	handler: async (request, h) => {
-		return fs.readFileSync("./../static/holi.html", "utf8");
+	handler: (request, h) => {
+		return h.file("holi.html");
 	},
 });
 
@@ -24,17 +32,21 @@ server.route({
 	options: {
 		cors: true,
 		handler: async (req, h) => {
-			var result;
+			let libros = await (
+				await DB.collection("libros")
+			)
+				.find(
+					{},
+					{
+						// Exclude _id from results
+						projection: {
+							_id: 0,
+						},
+					}
+				)
+				.toArray();
 
-			DB.open();
-
-			result = await DB.query(
-				"select portada, nombre, autor, isbn, edicion, link, lenguaje from libros order by lenguaje"
-			);
-
-			DB.close();
-
-			return result;
+			return libros;
 		},
 	},
 });
@@ -46,7 +58,7 @@ server.route({
 		cors: true,
 		handler: async (request, h) => {
 			var result;
-/*
+			/*
 			DB.open();
 
 			result = await DB.query("select * from libros");
@@ -55,8 +67,8 @@ server.route({
 */
 			result = {
 				message: "Not yet implemented! :C",
-				error: true
-			}
+				error: true,
+			};
 			return result;
 		},
 	},

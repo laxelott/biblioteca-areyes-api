@@ -1,38 +1,24 @@
 import connData from "./../data/connection-data.json";
-import mysql from "mysql";
+import mongodb from "mongodb";
 
 var DB = {
-	con: {},
-	open: () => {
-		DB.con = mysql.createConnection({
-			host: connData.host,
-			user: connData.user,
-			password: connData.password,
-			database : connData.database
-		});
-		
-		DB.con.connect();
-	},
-	close: () => {
-		DB.con.destroy();
-	},
-	query: (sql) => {
-		return new Promise((resolve, reject) => {
-			DB.con.query(sql, function (err, result) {
-				if (err) {
-					throw err;
-				}
-				resolve(result);
-			});
-		});
-	},
-};
+	client: mongodb.MongoClient,
+	init: async () => {
+		let uri = `mongodb+srv://${connData.user}:${connData.password}@${connData.host}`;
 
-DB.con = mysql.createConnection({
-	host: connData.host,
-	user: connData.user,
-	password: connData.password,
-	database : connData.database
-});
+		DB.client = new mongodb.MongoClient(uri, {
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+		});
+
+		await DB.client.connect();
+	},
+	collection: async (clusterName) => {
+		return await DB.client.db(connData.database).collection(clusterName);
+	},
+	close: async () => {
+		await DB.client.close();
+	}
+};
 
 export default DB;

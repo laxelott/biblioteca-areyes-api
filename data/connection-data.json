@@ -1,7 +1,6 @@
 {
-	"host": "sql5.freesqldatabase.com",
-	"port": 3306,
-	"user": "sql5409225",
-	"password": "tjDbWSQy5H",
-	"database": "sql5409225"
+	"host": "libros.t740s.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+	"user": "libros-read",
+	"password": "FAcA2JVM8wdyAq7z",
+	"database": "libros"
 }
