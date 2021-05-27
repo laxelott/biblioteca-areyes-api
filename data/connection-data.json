@@ -1,5 +1,5 @@
 {
-	"host": "libros.t740s.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+	"host": "libros.t740s.mongodb.net/libros?retryWrites=true&w=majority",
 	"user": "libros-read",
 	"password": "FAcA2JVM8wdyAq7z",
 	"database": "libros"

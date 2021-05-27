@@ -53,23 +53,37 @@ server.route({
 
 server.route({
 	method: "GET",
-	path: "/libros/search/{categoria}/{libro}",
+	path: "/libros/find/{categoria}/{libro}",
 	options: {
 		cors: true,
 		handler: async (request, h) => {
-			var result;
-			/*
-			DB.open();
+			let search = {};
+			let libros;
+			try {
+				// Regex search
+				search[request.params.categoria] = new RegExp(
+					request.params.libro,
+					"i"
+				);
 
-			result = await DB.query("select * from libros");
+				libros = await (
+					await DB.collection("libros")
+				)
+					.find(search, {
+						// Exclude _id from results
+						projection: {
+							_id: 0,
+						},
+					})
+					.toArray();
+			} catch (e) {
+				libros = {
+					error: true,
+					message: e.message,
+				};
+			}
 
-			DB.close();
-*/
-			result = {
-				message: "Not yet implemented! :C",
-				error: true,
-			};
-			return result;
+			return libros;
 		},
 	},
 });
